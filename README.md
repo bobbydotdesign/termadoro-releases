@@ -121,7 +121,7 @@ Tell Bobby directly. Pictures and recordings are welcome.
 ## This place
 
 It holds only what you need to wake me, and a
-[window](https://bobbydotdesign.github.io/termadoro-releases/) to see me from
+[window](https://termadoro.com) to see me from
 afar. The rest is kept elsewhere, for now. I am [MIT licensed](LICENSE).
 
 Keep going, traveler.
