@@ -37,17 +37,9 @@ function grid() {
   return { cols, rows, cellW: width / cols, cellH: height / rows, dpr: window.devicePixelRatio || 1 };
 }
 
-// Keep the orb clear of the words in the corners.
-function place() {
-  if (!game) return;
-  const rect = install.getBoundingClientRect();
-  game.reserve(Math.max(0, screen.getBoundingClientRect().bottom - rect.top) + 16);
-}
-
 function loop(now) {
   try {
     game.frame(now);
-    place();
   } catch (err) {
     // Something broke inside the drawing: show the text version rather than
     // a frozen screen.
@@ -67,7 +59,6 @@ function show(i) {
   method = i;
   tabs.forEach((tab) => tab.setAttribute('aria-pressed', String(Number(tab.dataset.method) === i)));
   command.textContent = COMMANDS[i];
-  place();
 }
 
 let copiedTimer = null;
@@ -210,16 +201,12 @@ async function start() {
     fallback();
     return;
   }
-  place();
   requestAnimationFrame(loop);
 
   // Canvas text doesn't make the browser fetch a web font, so ask for it,
   // then redraw with it (the words below the name use it too).
   const fonts = ['400', '700'].map((w) => document.fonts?.load(`${w} 16px "JetBrains Mono"`));
-  Promise.allSettled(fonts).then(() => {
-    game.invalidate();
-    place();
-  });
+  Promise.allSettled(fonts).then(() => game.invalidate());
 
   let resizing;
   new ResizeObserver(() => {
@@ -227,7 +214,6 @@ async function start() {
     resizing = setTimeout(() => {
       const g = grid();
       game.resize(g.cols, g.rows, g.cellW, g.cellH, g.dpr);
-      place();
     }, 80);
   }).observe(screen);
 }

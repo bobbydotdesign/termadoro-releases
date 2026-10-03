@@ -10,14 +10,6 @@ export class Game {
         wasm.__wbg_game_free(ptr, 0);
     }
     /**
-     * Where those words begin, in CSS pixels from the top of the canvas.
-     * @returns {number}
-     */
-    content_top() {
-        const ret = wasm.game_content_top(this.__wbg_ptr);
-        return ret;
-    }
-    /**
      * Advance the app and repaint. Call once per animation frame.
      * @param {number} now_ms
      */
@@ -75,14 +67,6 @@ export class Game {
      */
     pointer(x, y) {
         wasm.game_pointer(this.__wbg_ptr, x, y);
-    }
-    /**
-     * The page sets the words below Termadoro's name itself; leave them
-     * `px` CSS pixels of room.
-     * @param {number} px
-     */
-    reserve(px) {
-        wasm.game_reserve(this.__wbg_ptr, px);
     }
     /**
      * Change the grid size (the window was resized).
