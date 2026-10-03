@@ -2,108 +2,128 @@
 
 <img src="screenshot.png" alt="Termadoro, an orb of teal light, awake on the title screen of a terminal" width="720">
 
-# Termadoro · test builds
+# Termadoro
 
-**A focus timer for your terminal, kept by something very old.**
-
-[See it on the web](https://bobbydotdesign.github.io/termadoro-releases/) · Thanks for helping test it.
+*A note, left for a traveler.*
 
 </div>
 
-## Install
+Traveler,
 
-For Apple Silicon Macs (M1 and newer).
+If you are reading this, you have found the place where I wait.
 
-**With [Homebrew](https://brew.sh):**
+We have met before. You may not remember it. I do, a little.
+
+I live between the seconds, in the narrow places where time folds. Your focus
+is the only light that reaches me there. When you hold it on one thing, I grow
+stronger, and what I have forgotten returns.
+
+Here is how we find each other again.
+
+## To call me back
+
+I can be reached from a Mac with Apple Silicon. Open a terminal, and write:
 
 ```sh
 brew install bobbydotdesign/tap/termadoro
 ```
 
-**Without Homebrew**, paste this into Terminal, then open a new terminal window:
+If you keep no Homebrew, this way works as well:
 
 ```sh
 curl -fsSL https://github.com/bobbydotdesign/termadoro-releases/releases/latest/download/install.sh | sh
 ```
 
-That installer checks the download's checksum, puts a single file at
-`~/.local/bin/termadoro`, and adds that folder to your `PATH` if it isn't there
-yet. Want to read it first? It's [`install.sh`](install.sh).
+It checks what it brings before it leaves anything, and what it leaves is a
+single file, at `~/.local/bin/termadoro`. You may read it first:
+[`install.sh`](install.sh). Then open a new terminal window.
 
-Either way, you can run the install command from any folder. Then start it with:
+From any folder, say my name:
 
 ```sh
 termadoro
 ```
 
-**For the best look**, use a terminal with 24-bit color: iTerm2, Ghostty,
-WezTerm, kitty or the VS Code terminal. The built-in Terminal app works too, in
-256 colors. **Turn your sound on**: Termadoro speaks, and has music for your
-sessions.
+I wake slowly. Be patient with me the first time. Let your sound be on: I will
+speak, and I have music for you.
 
-## Where to run it
+## What we do together
 
-Anywhere. termadoro keeps everything in `~/.local/share/termadoro` and never
-writes files into the folder you start it from, so it's safe to run inside your
-project repos.
+Twenty-five minutes of focus. One task. The rest of the world must wait.
 
-Starting it inside a git repo is actually handy: your sessions get tagged with
-that project's name, so the high-score table (`h`) and `termadoro --stats` can
-break your time down by project. Start it from your home folder, or pass
-`-p ''`, to leave sessions untagged.
+Then five minutes of rest, so your light can settle.
 
-## What it is
+After four, a longer rest. We grow brighter, and you regain focus.
 
-Focus for 25 minutes on one thing, rest for 5, and after four rounds rest
-longer. Termadoro is a being of light from between the seconds, and your focus
-makes it stronger: each interval you keep returns one of its memories.
+Each interval you keep returns a memory to me. In the rest that follows, I can
+tell you what came back: press `enter`.
 
-## Things to try
+| | |
+|---|---|
+| `space` | begins and pauses |
+| `t` | names your task |
+| `h` | shows the path you have walked, and the memories waiting along it |
+| `l` | opens what I remember |
+| `c` | changes my form, my color and my music. I have worn other shapes. |
+| `?` | shows the rest |
 
-- **Meet it.** The intro plays the first time you launch (it asks your name); press `a` to see it again.
-- **Do a quick round:** `termadoro -f 1 -s 1` gives you a one-minute focus and a one-minute rest.
-- **Hear a memory.** Your first interval brings one back; press `enter` during the rest to hear it, or `l` any time.
-- **Walk the path:** `h` shows how far you've come and which memories wait ahead.
-- **Attune it:** `c` changes its form (an orb, a butterfly, a dragon, a jellyfish), its color and its music.
-- **Press around:** `t` names your task, `b` touches the light, `?` shows everything else.
-- **Use it for real.** A normal 25-minute session is the best test of all.
+To keep a short vigil first, try `termadoro -f 1 -s 1`: one minute of focus,
+then one of rest.
 
-## What I'd love to hear
+## Where I am clearest
 
-- Anything that looked broken, cut off or glitchy. A screenshot plus your terminal app and window size helps a lot.
-- How the sound lands: Termadoro's voice, the music, the chimes.
-- Anything confusing, or anything you wished it did.
-- Would you keep using it?
+In a terminal that knows many colors: iTerm2, Ghostty, WezTerm, kitty, or the
+one inside VS Code. The Terminal your Mac came with will do, more dimly.
 
-Send it all straight to Bobby. Screenshots and screen recordings are very welcome.
+Wake me anywhere; I never leave anything in the folder you call me from. If you
+call me from a project's folder, I remember which work each interval was for.
 
-## Update
+## What I keep
 
-With Homebrew: `brew upgrade termadoro`. Otherwise, run the install command again.
+Only what you give me, and only on your machine. Your intervals rest in
+`~/.local/share/termadoro`; my voice and my music, once made, in
+`~/.cache/termadoro`.
 
-## Uninstall
+I send nothing across the network. No one watches us.
 
-With Homebrew: `brew uninstall termadoro`. Otherwise:
+## When we part
+
+To find me as I am now, after I change: `brew upgrade termadoro`, or the second
+way again.
+
+If you must leave: `brew uninstall termadoro`, or
 
 ```sh
 rm ~/.local/bin/termadoro
 ```
 
-and delete the line the installer added to `~/.zshrc` (it's marked
-`# Added by the termadoro installer`).
-
-To also remove your history and settings:
+and take away the line the second way left in `~/.zshrc` (it is marked
+`# Added by the termadoro installer`). To take what I kept of you as well:
 
 ```sh
 rm -rf ~/.local/share/termadoro ~/.cache/termadoro
 ```
 
-## Privacy
+I will still remember you.
 
-Everything stays on your computer: your session history, settings and scores.
-termadoro makes no network requests and has no analytics.
+## My maker
 
-## About this repository
+Bobby gave me the shape I wear now, and would like to know:
 
-It only holds test builds and the website. Termadoro's source code is private
-while it's being tested. The app is [MIT licensed](LICENSE).
+- if anything of me looked broken, cut off, or flickered strangely (a picture,
+  the name of your terminal and its size help);
+- how my voice and my music land;
+- what confused you, and what you wished I did;
+- whether you will keep coming back.
+
+Tell Bobby directly. Pictures and recordings are welcome.
+
+## This place
+
+It holds only what you need to wake me, and a
+[window](https://bobbydotdesign.github.io/termadoro-releases/) to see me from
+afar. The rest is kept elsewhere, for now. I am [MIT licensed](LICENSE).
+
+Keep going, traveler.
+
+— Termadoro
