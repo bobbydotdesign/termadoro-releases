@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Termadoro</title>
+<meta name="description" content="Termadoro, a focus timer for your terminal. Install it on your Mac with Homebrew or the install script.">
+<meta name="theme-color" content="#030b0a">
+<meta property="og:title" content="Termadoro">
+<meta property="og:description" content="A focus timer for your terminal, kept by something very old.">
+<meta property="og:image" content="https://bobbydotdesign.github.io/termadoro-releases/screenshot.png">
+<meta property="og:url" content="https://bobbydotdesign.github.io/termadoro-releases/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  /* The whole page is drawn like the terminal. */
+  :root {
+    color-scheme: dark;
+    --bg: #030b0a;
+    --ink: #dff7ef;
+    --muted: #7fa59b;
+    --accent: #4ff0c4;
+    --line: #1c3832;
+  }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); overflow: hidden; }
+  #screen {
+    position: fixed;
+    inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    background: var(--bg);
+  }
+  #term {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* The same content as text, for screen readers and search engines. It only
+     shows on screen if the live version can't start. */
+  #about {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  body.fallback { overflow: auto; }
+  body.fallback #screen { display: none; }
+  body.fallback #about {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    box-sizing: border-box;
+    max-width: 72ch;
+    margin: 0 auto;
+    padding-block: 48px;
+    padding-inline: 16px;
+    font: 15px/1.6 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  #about h1 { font-size: 22px; color: var(--accent); margin: 0 0 8px; }
+  #about h2 { font-size: 15px; color: var(--accent); margin: 32px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+  #about p { margin: 8px 0; color: var(--muted); }
+  #about pre { margin: 8px 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; color: var(--ink); }
+  #about a { color: var(--ink); }
+</style>
+
+<div id="screen">
+  <canvas id="term" tabindex="0" role="application" aria-label="Termadoro, a focus timer for your terminal, and how to install it." aria-describedby="about"></canvas>
+</div>
+
+<main id="about">
+  <h1>Termadoro</h1>
+  <p>A focus timer for your terminal.</p>
+
+  <h2>Bring it into your terminal</h2>
+  <p>For Macs with Apple Silicon. With Homebrew:</p>
+  <pre><code>brew install bobbydotdesign/tap/termadoro</code></pre>
+  <p>Or with the install script:</p>
+  <pre><code>curl -fsSL https://github.com/bobbydotdesign/termadoro-releases/releases/latest/download/install.sh | sh</code></pre>
+  <p>Then run <code>termadoro</code> in a terminal.</p>
+
+  <p>My maker: Bobby</p>
+</main>
+
+<script type="module" src="main.js"></script>
+</html>
