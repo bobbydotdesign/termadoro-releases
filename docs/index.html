@@ -3,10 +3,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Termadoro</title>
-<meta name="description" content="Termadoro, a focus timer for your terminal. Install it on your Mac with Homebrew or the install script.">
+<meta name="description" content="Termadoro waits between the seconds, and your focus calls it back. A focus timer for your terminal.">
 <meta name="theme-color" content="#030b0a">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta property="og:title" content="Termadoro">
-<meta property="og:description" content="A focus timer for your terminal, kept by something very old.">
+<meta property="og:description" content="Termadoro waits between the seconds, and your focus calls it back. A focus timer for your terminal.">
 <meta property="og:image" content="https://bobbydotdesign.github.io/termadoro-releases/screenshot.png">
 <meta property="og:url" content="https://bobbydotdesign.github.io/termadoro-releases/">
 <meta name="twitter:card" content="summary_large_image">
@@ -66,6 +69,100 @@
     padding-inline: 16px;
     font: 15px/1.6 'JetBrains Mono', ui-monospace, Menlo, monospace;
   }
+  /* The page sets its own words, smaller than the canvas's cells: how to
+     install it in the bottom left, and who it's by in the bottom right. The
+     canvas keeps the orb clear of them. */
+  #install, #by {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    font: 12px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    color: var(--muted);
+  }
+  #install {
+    left: calc(env(safe-area-inset-left, 0px) + 36px);
+    width: min(460px, calc(100vw - 72px));
+  }
+  #by { right: calc(env(safe-area-inset-right, 0px) + 36px); }
+  #install .kicker, #by {
+    margin: 0;
+    font-size: 10.5px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+  }
+  #install .kicker { color: var(--ink); margin-bottom: 16px; }
+
+  /* Its name in the top left, and sound in the top right. */
+  #mark, #sound {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 26px);
+    margin: 0;
+    font: 10.5px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  #mark {
+    left: calc(env(safe-area-inset-left, 0px) + 36px);
+    color: var(--ink);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+  }
+  #sound {
+    right: calc(env(safe-area-inset-right, 0px) + 36px);
+    color: var(--muted);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+  }
+  #sound kbd { font: inherit; color: var(--accent); background: var(--line); padding: 1px 6px; border-radius: 3px; margin-right: 7px; }
+  #sound:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  @media (max-width: 720px) {
+    #mark { left: 20px; }
+    #sound { right: 20px; }
+  }
+
+  /* With a mouse, the pointer is a mote of light: an exact dot, and a halo
+     that drifts after it and swells over anything that can be touched. */
+  #mote, #halo { position: fixed; left: 0; top: 0; pointer-events: none; border-radius: 50%; opacity: 0; transition: opacity 0.4s; z-index: 10; }
+  #mote { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--ink); box-shadow: 0 0 6px var(--accent), 0 0 14px rgba(79, 240, 196, 0.5); }
+  #halo { width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 1px solid rgba(79, 240, 196, 0.35); background: radial-gradient(rgba(79, 240, 196, 0.10), transparent 70%); transition: opacity 0.4s, width 0.35s, height 0.35s, margin 0.35s, border-color 0.35s; }
+  #halo.near { width: 52px; height: 52px; margin: -26px 0 0 -26px; border-color: rgba(79, 240, 196, 0.6); }
+  @media (hover: hover) and (pointer: fine) {
+    html, body, canvas, button, a, pre { cursor: none !important; }
+    body.moved #mote, body.moved #halo { opacity: 1; }
+  }
+  /* The maker's name: it lights, breathes out, and decodes under the pointer. */
+  #by a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.5s, text-shadow 0.5s, letter-spacing 0.5s;
+  }
+  #by a:hover, #by a:focus-visible {
+    color: var(--accent);
+    letter-spacing: 0.55em;
+    text-shadow: 0 0 6px rgba(79, 240, 196, 0.6), 0 0 18px rgba(79, 240, 196, 0.3);
+    outline: none;
+  }
+  @media (max-width: 720px) {
+    #install { left: 20px; width: calc(100vw - 40px); bottom: calc(env(safe-area-inset-bottom, 0px) + 58px); }
+    #by { left: 20px; right: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); }
+  }
+  #install .box { text-align: left; }
+  #install .bar { display: flex; align-items: center; gap: 4px; margin-bottom: 10px; }
+  #install button { font: inherit; color: var(--muted); background: none; border: 0; padding: 1px 7px; border-radius: 3px; cursor: pointer; }
+  #install button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  #install .tab[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+  #install .copy { margin-left: 14px; }
+  #install .copy kbd { font: inherit; color: var(--accent); background: var(--line); padding: 1px 6px; border-radius: 3px; margin-right: 7px; }
+  #install .copy.done { color: var(--accent); }
+  #install pre { margin: 0; font: 12.5px/1.6 'JetBrains Mono', ui-monospace, Menlo, monospace; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+  #install .sigil { color: var(--muted); user-select: none; -webkit-user-select: none; }
+  #install .only { margin: 9px 0 0; font-size: 10.5px; }
+  @media (max-width: 480px) {
+    #install { font-size: 11px; }
+    #install pre { font-size: 11.5px; }
+  }
+  body.fallback #install, body.fallback #by { position: static; width: auto; max-width: 72ch; margin: 0 auto 32px; padding-inline: 16px; }
+
   #about h1 { font-size: 22px; color: var(--accent); margin: 0 0 8px; }
   #about h2 { font-size: 15px; color: var(--accent); margin: 32px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
   #about p { margin: 8px 0; color: var(--muted); }
@@ -74,21 +171,33 @@
 </style>
 
 <div id="screen">
-  <canvas id="term" tabindex="0" role="application" aria-label="Termadoro, a focus timer for your terminal, and how to install it." aria-describedby="about"></canvas>
+  <canvas id="term" role="img" aria-label="Termadoro, an orb of light." aria-describedby="about"></canvas>
 </div>
+
+<div id="halo" aria-hidden="true"></div>
+<div id="mote" aria-hidden="true"></div>
+<p id="mark">Termadoro</p>
+<button id="sound" type="button"><kbd>M</kbd><span>sound</span></button>
+
+<section id="install" aria-label="Install Termadoro">
+  <p class="kicker">For Terminal only</p>
+  <div class="box">
+    <div class="bar">
+      <button class="tab" type="button" aria-pressed="true" data-method="0">homebrew</button>
+      <button class="tab" type="button" aria-pressed="false" data-method="1">script</button>
+      <button class="copy" type="button"><kbd>C</kbd><span aria-live="polite">copy</span></button>
+    </div>
+    <pre><span class="sigil">$ </span><code id="command">brew install bobbydotdesign/tap/termadoro</code></pre>
+    <p class="only">macOS · Apple Silicon only, for now</p>
+  </div>
+</section>
+
+<p id="by">By Traveler: <a href="https://bobby.design" target="_blank" rel="noopener">Bobby</a></p>
 
 <main id="about">
   <h1>Termadoro</h1>
-  <p>A focus timer for your terminal.</p>
-
-  <h2>Bring it into your terminal</h2>
-  <p>For Macs with Apple Silicon. With Homebrew:</p>
-  <pre><code>brew install bobbydotdesign/tap/termadoro</code></pre>
-  <p>Or with the install script:</p>
-  <pre><code>curl -fsSL https://github.com/bobbydotdesign/termadoro-releases/releases/latest/download/install.sh | sh</code></pre>
-  <p>Then run <code>termadoro</code> in a terminal.</p>
-
-  <p>My maker: Bobby</p>
+  <p>Termadoro waits between the seconds, and your focus calls it back. A focus timer for your terminal.</p>
+  <p>Install it with one of the commands below, then run <code>termadoro</code> in a terminal.</p>
 </main>
 
 <script type="module" src="main.js"></script>

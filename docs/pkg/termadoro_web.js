@@ -10,23 +10,12 @@ export class Game {
         wasm.__wbg_game_free(ptr, 0);
     }
     /**
-     * A click or tap at CSS pixel (`x`, `y`) on the canvas: presses whatever
-     * key the thing under it stands for.
-     * @param {number} x
-     * @param {number} y
+     * Where those words begin, in CSS pixels from the top of the canvas.
+     * @returns {number}
      */
-    click(x, y) {
-        wasm.game_click(this.__wbg_ptr, x, y);
-    }
-    /**
-     * Whether there's something clickable at CSS pixel (`x`, `y`).
-     * @param {number} x
-     * @param {number} y
-     * @returns {boolean}
-     */
-    clickable(x, y) {
-        const ret = wasm.game_clickable(this.__wbg_ptr, x, y);
-        return ret !== 0;
+    content_top() {
+        const ret = wasm.game_content_top(this.__wbg_ptr);
+        return ret;
     }
     /**
      * Advance the app and repaint. Call once per animation frame.
@@ -40,18 +29,6 @@ export class Game {
      */
     invalidate() {
         wasm.game_invalidate(this.__wbg_ptr);
-    }
-    /**
-     * Feed a key, named like `KeyboardEvent.key`. Returns whether it was used.
-     * @param {string} key
-     * @param {boolean} shift
-     * @returns {boolean}
-     */
-    key(key, shift) {
-        const ptr0 = passStringToWasm0(key, wasm.__wbindgen_export2, wasm.__wbindgen_export3);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.game_key(this.__wbg_ptr, ptr0, len0, shift);
-        return ret !== 0;
     }
     /**
      * A game on `canvas` with a grid of `cols`×`rows` cells, each
@@ -81,6 +58,33 @@ export class Game {
         }
     }
     /**
+     * Whether CSS pixel (`x`, `y`) is on the orb.
+     * @param {number} x
+     * @param {number} y
+     * @returns {boolean}
+     */
+    over_orb(x, y) {
+        const ret = wasm.game_over_orb(this.__wbg_ptr, x, y);
+        return ret !== 0;
+    }
+    /**
+     * The pointer moved to CSS pixel (`x`, `y`), or left (negative): the orb
+     * looks towards it.
+     * @param {number} x
+     * @param {number} y
+     */
+    pointer(x, y) {
+        wasm.game_pointer(this.__wbg_ptr, x, y);
+    }
+    /**
+     * The page sets the words below Termadoro's name itself; leave them
+     * `px` CSS pixels of room.
+     * @param {number} px
+     */
+    reserve(px) {
+        wasm.game_reserve(this.__wbg_ptr, px);
+    }
+    /**
      * Change the grid size (the window was resized).
      * @param {number} cols
      * @param {number} rows
@@ -92,44 +96,24 @@ export class Game {
         wasm.game_resize(this.__wbg_ptr, cols, rows, cell_w, cell_h, dpr);
     }
     /**
-     * Text the visitor asked to copy, if any.
-     * @returns {string | undefined}
+     * Sound and music on or off.
+     * @param {boolean} on
      */
-    take_copy() {
-        try {
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.game_take_copy(retptr, this.__wbg_ptr);
-            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
-            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
-            let v1;
-            if (r0 !== 0) {
-                v1 = getStringFromWasm0(r0, r1);
-                wasm.__wbindgen_export4(r0, r1 * 1, 1);
-            }
-            return v1;
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-        }
+    set_sound(on) {
+        wasm.game_set_sound(this.__wbg_ptr, on);
     }
     /**
-     * A page the visitor asked to open, if any.
-     * @returns {string | undefined}
+     * @returns {boolean}
      */
-    take_link() {
-        try {
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.game_take_link(retptr, this.__wbg_ptr);
-            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
-            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
-            let v1;
-            if (r0 !== 0) {
-                v1 = getStringFromWasm0(r0, r1);
-                wasm.__wbindgen_export4(r0, r1 * 1, 1);
-            }
-            return v1;
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-        }
+    sound_on() {
+        const ret = wasm.game_sound_on(this.__wbg_ptr);
+        return ret !== 0;
+    }
+    /**
+     * Touch the orb: it answers, and its music begins.
+     */
+    touch() {
+        wasm.game_touch(this.__wbg_ptr);
     }
 }
 if (Symbol.dispose) Game.prototype[Symbol.dispose] = Game.prototype.free;
@@ -149,6 +133,10 @@ function __wbg_get_imports() {
         __wbg_beginPath_8598d895c13f1c86: function(arg0) {
             getObject(arg0).beginPath();
         },
+        __wbg_cancelScheduledValues_9b9e6893d788ea1c: function() { return handleError(function (arg0, arg1) {
+            const ret = getObject(arg0).cancelScheduledValues(arg1);
+            return addHeapObject(ret);
+        }, arguments); },
         __wbg_connect_30bfff6aec59fc83: function() { return handleError(function (arg0, arg1) {
             const ret = getObject(arg0).connect(getObject(arg1));
             return addHeapObject(ret);
@@ -168,6 +156,10 @@ function __wbg_get_imports() {
             const ret = getObject(arg0).createGain();
             return addHeapObject(ret);
         }, arguments); },
+        __wbg_currentTime_eb1592316a1d4450: function(arg0) {
+            const ret = getObject(arg0).currentTime;
+            return ret;
+        },
         __wbg_destination_05471d87031cba86: function(arg0) {
             const ret = getObject(arg0).destination;
             return addHeapObject(ret);
@@ -224,6 +216,10 @@ function __wbg_get_imports() {
             const ret = result;
             return ret;
         },
+        __wbg_linearRampToValueAtTime_f87a0c73867277b7: function() { return handleError(function (arg0, arg1, arg2) {
+            const ret = getObject(arg0).linearRampToValueAtTime(arg1, arg2);
+            return addHeapObject(ret);
+        }, arguments); },
         __wbg_localStorage_567c24950edbc178: function() { return handleError(function (arg0) {
             const ret = getObject(arg0).localStorage;
             return isLikeNone(ret) ? 0 : addHeapObject(ret);
@@ -243,8 +239,16 @@ function __wbg_get_imports() {
             const ret = new lAudioContext();
             return addHeapObject(ret);
         }, arguments); },
+        __wbg_resume_262977d0e323b264: function() { return handleError(function (arg0) {
+            const ret = getObject(arg0).resume();
+            return addHeapObject(ret);
+        }, arguments); },
         __wbg_setItem_c5fb0966b484ecd3: function() { return handleError(function (arg0, arg1, arg2, arg3, arg4) {
             getObject(arg0).setItem(getStringFromWasm0(arg1, arg2), getStringFromWasm0(arg3, arg4));
+        }, arguments); },
+        __wbg_setValueAtTime_2edc098944a654d2: function() { return handleError(function (arg0, arg1, arg2) {
+            const ret = getObject(arg0).setValueAtTime(arg1, arg2);
+            return addHeapObject(ret);
         }, arguments); },
         __wbg_set_buffer_7ab48e13895631dc: function(arg0, arg1) {
             getObject(arg0).buffer = getObject(arg1);
@@ -295,6 +299,13 @@ function __wbg_get_imports() {
         __wbg_stop_5bb124fd4e4d0ad6: function() { return handleError(function (arg0) {
             getObject(arg0).stop();
         }, arguments); },
+        __wbg_stop_cb3ffac6e0d1547a: function() { return handleError(function (arg0, arg1) {
+            getObject(arg0).stop(arg1);
+        }, arguments); },
+        __wbg_value_b0f8eddb3809690f: function(arg0) {
+            const ret = getObject(arg0).value;
+            return ret;
+        },
         __wbindgen_generic_0000000000000001: function(arg0) {
             // Cast intrinsic for `F64 -> Externref`.
             const ret = arg0;
