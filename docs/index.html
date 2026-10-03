@@ -163,17 +163,18 @@
     body.moved #mote, body.moved #halo { opacity: 1; }
   }
   /* The maker's name: it lights, breathes out, and decodes under the pointer. */
-  #by a {
+  #install .only a, #by a {
     color: var(--ink);
     text-decoration: none;
     transition: color 0.5s, text-shadow 0.5s, letter-spacing 0.5s;
   }
-  #by a:hover, #by a:focus-visible {
+  #install .only a:hover, #install .only a:focus-visible, #by a:hover, #by a:focus-visible {
     color: var(--accent);
     letter-spacing: 0.55em;
     text-shadow: 0 0 6px rgba(79, 240, 196, 0.6), 0 0 18px rgba(79, 240, 196, 0.3);
     outline: none;
   }
+  #install .only a:hover, #install .only a:focus-visible { letter-spacing: normal; }
   @media (max-width: 720px) {
     #install { left: 20px; width: calc(100vw - 40px); bottom: calc(env(safe-area-inset-bottom, 0px) + 58px); }
     #by { left: 20px; right: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); }
@@ -188,6 +189,7 @@
   #install .copy.done { color: var(--accent); }
   #install pre { margin: 0; font: 12.5px/1.6 'JetBrains Mono', ui-monospace, Menlo, monospace; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
   #install .sigil { color: var(--muted); user-select: none; -webkit-user-select: none; }
+  #install .comment { color: var(--muted); user-select: none; -webkit-user-select: none; }
   #install .only { margin: 9px 0 0; font-size: 10.5px; }
   @media (max-width: 480px) {
     #install { font-size: 11px; }
@@ -219,8 +221,12 @@
       <button class="tab" type="button" aria-pressed="false" data-method="1">script</button>
       <button class="copy" type="button"><kbd>C</kbd><span aria-live="polite">copy</span></button>
     </div>
-    <pre><span class="sigil">$ </span><code id="command">brew install bobbydotdesign/tap/termadoro</code></pre>
-    <p class="only">macOS · Apple Silicon only, for now</p>
+    <pre><span class="comment"># install</span>
+<span class="sigil">$ </span><code id="command">brew install bobbydotdesign/tap/termadoro</code>
+
+<span class="comment"># run</span>
+<span class="sigil">$ </span><code>termadoro</code></pre>
+    <p class="only">macOS · Apple Silicon only, for now · <a href="https://github.com/bobbydotdesign/termadoro-releases#when-we-part" target="_blank" rel="noopener">update or uninstall</a></p>
   </div>
 </section>
 
