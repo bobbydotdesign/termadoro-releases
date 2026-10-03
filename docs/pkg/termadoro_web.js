@@ -99,6 +99,15 @@ export class Game {
     touch() {
         wasm.game_touch(this.__wbg_ptr);
     }
+    /**
+     * The middle of the row the words under Termadoro go on, in CSS pixels
+     * from the top of the canvas.
+     * @returns {number}
+     */
+    words_top() {
+        const ret = wasm.game_words_top(this.__wbg_ptr);
+        return ret;
+    }
 }
 if (Symbol.dispose) Game.prototype[Symbol.dispose] = Game.prototype.free;
 function __wbg_get_imports() {

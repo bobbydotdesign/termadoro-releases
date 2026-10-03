@@ -14,6 +14,7 @@ const copyLabel = copyButton.querySelector('span');
 const soundButton = document.getElementById('sound');
 const soundLabel = soundButton.querySelector('span');
 const maker = document.querySelector('#by a');
+const words = document.getElementById('words');
 
 const COMMANDS = [
   'brew install bobbydotdesign/tap/termadoro',
@@ -37,9 +38,20 @@ function grid() {
   return { cols, rows, cellW: width / cols, cellH: height / rows, dpr: window.devicePixelRatio || 1 };
 }
 
+// The words under the orb go where the canvas says.
+let wordsAt = null;
+function placeWords() {
+  const top = screen.getBoundingClientRect().top + game.words_top();
+  if (top !== wordsAt) {
+    words.style.top = `${top}px`;
+    wordsAt = top;
+  }
+}
+
 function loop(now) {
   try {
     game.frame(now);
+    placeWords();
   } catch (err) {
     // Something broke inside the drawing: show the text version rather than
     // a frozen screen.
@@ -151,8 +163,23 @@ function toggleSound() {
 
 soundButton.addEventListener('click', toggleSound);
 
-// The maker's name decodes under the pointer, as Termadoro's does.
+// Text decodes in: each letter flickers through glyphs, then settles.
 const GLYPHS = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ#%+=/<>';
+function decode(el, perLetter) {
+  const word = el.dataset.word || (el.dataset.word = el.textContent);
+  const start = performance.now();
+  const step = (now) => {
+    const settled = Math.floor((now - start) / perLetter);
+    el.textContent = [...word]
+      .map((c, i) => (i < settled || c === ' ' ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0]))
+      .join('');
+    if (settled < word.length) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+decode(words, 60);
+
+// The maker's name decodes under the pointer, as Termadoro's does.
 let decoding = null;
 maker.addEventListener('pointerenter', () => {
   const word = maker.dataset.word || (maker.dataset.word = maker.textContent);

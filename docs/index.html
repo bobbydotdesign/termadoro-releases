@@ -123,6 +123,20 @@
   }
   #install .kicker { color: var(--ink); margin-bottom: 16px; }
 
+  /* Under the orb: a word for whoever has come. main.js puts it there. */
+  #words {
+    position: fixed;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    white-space: nowrap;
+    font: 11.5px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    color: var(--ink);
+    pointer-events: none;
+  }
+  @media (max-width: 720px) { #words { font-size: 16px; } }
+
   /* Its name in the top left, and sound in the top right. */
   #mark, #sound {
     position: fixed;
@@ -211,6 +225,7 @@
 <div id="halo" aria-hidden="true"></div>
 <div id="mote" aria-hidden="true"></div>
 <p id="mark">Termadoro</p>
+<p id="words">I'm waiting, traveler.</p>
 <button id="sound" type="button"><kbd>M</kbd><span>sound</span></button>
 
 <section id="install" aria-label="Install Termadoro">
