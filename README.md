@@ -82,7 +82,7 @@ call me from a project's folder, I remember which work each interval was for.
 
 Only what you give me, and only on your machine. Your intervals rest in
 `~/.local/share/termadoro`; my voice and my music, once made, in
-`~/.cache/termadoro`.
+`~/.cache/termadoro`, with the small app my notes come from.
 
 I send nothing across the network. No one watches us.
 
