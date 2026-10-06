@@ -88,8 +88,14 @@ I send nothing across the network. No one watches us.
 
 ## When we part
 
-To find me as I am now, after I change: `brew upgrade termadoro`, or the second
-way again.
+To find me as I am now, after I change:
+
+```sh
+brew update && brew upgrade termadoro
+```
+
+(`brew update` first, or Homebrew may not have heard yet.) Without Homebrew,
+the second way again.
 
 If you must leave: `brew uninstall termadoro`, or
 
