@@ -61,8 +61,8 @@ tell you what came back: press `enter`.
 | | |
 |---|---|
 | `space` | begins and pauses |
-| `t` | names your task |
-| `h` | shows the path you have walked, and the memories waiting along it |
+| `t` | names your task (`↑` brings back one you named before) |
+| `h` | shows your days: each task, its sessions and time, and how long you focused and rested |
 | `l` | opens what I remember |
 | `c` | changes my form, my color and my music. I have worn other shapes. |
 | `?` | shows the rest |
